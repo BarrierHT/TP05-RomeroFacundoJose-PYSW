@@ -1,0 +1,25 @@
+<section class="mb-5 mt-4">
+    <div class="container">
+        <div class="" *ngIf="products.length == 0">
+            <h2 class="text-center"> No hay Productos destacados </h2>
+        </div>
+        <div class="" *ngIf="products.length > 0">
+            <h1 class="text-center"> Productos destacados </h1>
+        </div>
+        <div class="row align-items-center justify-content-center text-center mt-2">
+            <div class="card col-lg-4 col-md-6 col-12 p-0" *ngFor="let product of products">
+                <img src="{{product.imagen}}" class="img-fluid" alt="Image not found" />
+                <div class="card-body">
+                    <p class="card-title fw-bold fs-5">Nombre: {{product.nombre}}</p>
+                    <p class="card-title fw-bold fs-6 ">Descripcion: {{product.descripcion}}</p>
+
+                    <p class="card-subtitle text-secondary">Precio: {{product.precio}}</p>
+                    <p class="card-subtitle text-secondary">Stock: {{product.stock}}</p>
+
+                    <!-- <p class="card-subtitle text-secondary">Destacado: {{product.destacado}}</p> -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,95 @@
+<div class="container">
+    <form class="d-flex align-items-center justify-content-center" #productForm="ngForm"
+        (ngSubmit)="saveProduct(productForm.value)">
+        <fieldset class="form-group">
+            <legend>REGISTRAR Productos</legend>
+
+            <div class="form-group">
+                <label>Nombre del producto</label>
+                <input type="text" class="form-control" name="nombre" placeholder="Digite un nombre" required
+                    [(ngModel)]="productFormData.nombre" #nombre="ngModel" />
+                <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-danger">
+                    <div *ngIf="nombre.errors?.['required']">
+                        Por favor ingresa un nombre
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Precio</label>
+                <input type="number" step="any" class="form-control" name="precio" placeholder="Digite un precio"
+                    required [(ngModel)]="productFormData.precio" #precio="ngModel" min="1" />
+                <div *ngIf="precio.invalid && (precio.dirty || precio.touched)" class="alert alert-danger">
+                    <div *ngIf="precio.errors?.['required']">
+                        Por favor ingresa un precio.
+                    </div>
+                    <div *ngIf="precio.errors?.['min']">
+                        Valor minimo inválido!
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Stock</label>
+                <input type="number" class="form-control" name="stock" placeholder="Digite un stock" required
+                    [(ngModel)]="productFormData.stock" #stock="ngModel" min="1" />
+                <div *ngIf="stock.invalid && (stock.dirty || stock.touched)" class="alert alert-danger">
+                    <div *ngIf="stock.errors?.['required']">
+                        Por favor ingresa un stock
+                    </div>
+                    <div *ngIf="stock.errors?.['min']">
+                        Valor minimo inválido!
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Imagen (link URL)</label>
+                <input type="text" class="form-control" name="imagen" placeholder="Digite una url" required
+                    [(ngModel)]="productFormData.imagen" #imagen="ngModel" />
+                <div *ngIf="imagen.invalid && (imagen.dirty || imagen.touched)" class="alert alert-danger">
+                    <div *ngIf="imagen.errors?.['required']">
+                        Por favor ingresa el link de una imagen
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Descripcion del producto</label>
+                <textarea cols="30" rows="5" class="form-control" name="descripcion" placeholder="Digite la descripcion"
+                    required [(ngModel)]="productFormData.descripcion" #descripcion="ngModel"></textarea>
+
+                <div *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)"
+                    class="alert alert-danger">
+                    <div *ngIf="descripcion.errors?.['required']">
+                        Por favor ingresa una descripción
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" name="destacado"
+                        [(ngModel)]="productFormData.destacado" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                        Destacado
+                    </label>
+                </div>
+            </div>
+
+
+
+            <div class="form-group ">
+                <!-- (click)="saveTicket()" -->
+                <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid">
+                    <span>Registrar</span>
+                </button>
+
+                <a class="text-decoration-none text-white btn btn-primary p-2 m-2" [routerLink]="['/products']">
+                    Lista de Productos
+                </a>
+            </div>
+        </fieldset>
+    </form>
+</div>

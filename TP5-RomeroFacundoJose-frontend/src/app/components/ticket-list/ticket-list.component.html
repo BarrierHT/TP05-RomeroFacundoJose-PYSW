@@ -1,0 +1,112 @@
+<div class="container">
+    <table class="table table-bordered table-hover table-dark text-center">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Fecha de Compra</th>
+                <th scope="col">Precio Real</th>
+                <th scope="col">Tipo de Espectador</th>
+                <th scope="col">DNI del Espectador</th>
+                <th scope="col">Email del Espectador</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let ticket of tickets">
+                <th scope="row">
+                    {{ ticket._id }}
+                </th>
+                <td>{{ticket.fechaCompra}}</td>
+                <td>{{ ticket.precioTicket}}</td>
+                <td>
+                    <span *ngIf="ticket.categoriaEspectador == 'l'">Local</span>
+                    <span *ngIf="ticket.categoriaEspectador == 'e'">Extranjero</span>
+                </td>
+                <td>{{ticket.espectador.dni}}</td>
+                <td>{{ticket.espectador.email}}</td>
+                <td>
+                    <button class="col-12 btn bg-warning text-white p-1"
+                        (click)="updateTicket(ticket._id)">Modificar</button>
+                    <button class="col-12 btn bg-danger text-white mt-1 p-1"
+                        (click)="deleteTicket(ticket._id)">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <div class="container" *ngIf="tickets.length > 0">
+        <table class="table table-bordered table-hover table-dark text-center">
+            <thead>
+                <tr>
+                    <th scope="col">Tipo de espectador</th>
+                    <th scope="col">Total Ventas</th>
+                    <th scope="col">Total Cantidad de Ventas</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">
+                        Local
+                    </th>
+                    <td>{{sells.sumLocal | currency:'EUR':'symbol-narrow'}}</td>
+                    <td>{{ this.quantities.local }}</td>
+
+                </tr>
+                <tr>
+                    <th scope="row">
+                        Extranjero
+                    </th>
+                    <td>{{sells.sumForeign | currency:'EUR':'symbol-narrow'}}</td>
+                    <td>{{ this.quantities.foreign }}</td>
+
+                </tr>
+                <tr>
+                    <td scope="row" colspan="2"> Total Ventas: {{sells.sumLocal + sells.sumForeign |
+                        currency:'EUR':'symbol-narrow'}}</td>
+                    <td scope="row" colspan="2"> Total Cantidad: {{ this.quantities.local + this.quantities.foreign }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card m-5 p-2">
+        <!-- (click)="insertTicket()" -->
+        <a class="text-decoration-none text-white btn btn-primary p-2 m-2" [routerLink]="['/add-ticket/insert']">
+            Agregar nuevo ticket
+        </a>
+    </div>
+
+
+    <div class="card m-5 p-2 text-center">
+        <form action="" class="" #ticketListForm="ngForm">
+            <fieldset class="form-group">
+                <div class="form-group">
+                    <h5>Categoria de espectador</h5>
+
+                    <select class="form-select" name="categoria" required [(ngModel)]="category">
+                        <option selected disabled value="">
+                            Seleccione un tipo de espectador
+                        </option>
+                        <option value="e">Extranjero</option>
+                        <option value="l">Local</option>
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+                    <button class="btn bg-primary text-decoration-none text-white" (click)="getTicketsByCategory()"
+                        [disabled]="ticketListForm.invalid">
+                        Recuperar por categoria
+                    </button>
+
+                    <button class="btn bg-primary text-decoration-none text-white m-2" (click)="getTickets()">
+                        Recuperar todos los tickets
+                    </button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+</div>

@@ -1,0 +1,83 @@
+<div class="container">
+
+    <table class="table table-bordered table-hover table-dark text-center">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Moneda de Origen</th>
+                <th scope="col">Cantidad de Origen</th>
+                <th scope="col">Moneda de Destino</th>
+                <th scope="col">Cantidad de Destino</th>
+                <th scope="col">Tasa de Conversion</th>
+                <th scope="col">E-mail de Cliente</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let transaction of transactions">
+                <th scope="row">
+                    {{ transaction._id }}
+                </th>
+                <td>{{ transaction.monedaOrigen }}</td>
+                <td>{{transaction.cantidadOrigen | currency: transaction.monedaOrigen :'symbol-narrow'}}</td>
+                <td>{{transaction.monedaDestino}}</td>
+                <td>{{transaction.cantidadDestino | currency: transaction.monedaDestino :'symbol-narrow'}}</td>
+                <td>{{transaction.tasaConversion}}</td>
+                <td>{{transaction.emailCliente}}</td>
+
+            </tr>
+        </tbody>
+    </table>
+
+
+    <div class="card m-5 p-2">
+        <!-- (click)="insertTicket()" -->
+        <a class="text-decoration-none text-white btn btn-primary p-2 m-2" [routerLink]="['/currency']">
+            Ver Tabla de divisas
+        </a>
+
+    </div>
+    <div class="card m-5 p-2 text-center">
+        <form action="" class="" #transactionForm="ngForm">
+            <fieldset class="form-group">
+                <div class="form-group">
+                    <label>Moneda Origen</label>
+                    <input type="text" class="form-control" name="originCurrency"
+                        placeholder="Digite una moneda de origen" required [(ngModel)]="currencyOrigen"
+                        #divisaOrigen="ngModel" />
+
+
+                    <div *ngIf="divisaOrigen.invalid && (divisaOrigen.dirty || divisaOrigen.touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="divisaOrigen.errors?.['required']">
+                            Por favor ingresa una divisa de origen
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Moneda Destino</label>
+                    <input type="text" class="form-control" name="targetCurrency"
+                        placeholder="Digite una moneda de destino" required [(ngModel)]="currencyDestino"
+                        #divisaDestino="ngModel" />
+                    <div *ngIf="divisaDestino.invalid && (divisaDestino.dirty || divisaDestino.touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="divisaDestino.errors?.['required']">
+                            Por favor ingresa una divisa de destino
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn bg-primary text-decoration-none text-white" (click)="getTransactionsByCurrency()"
+                        [disabled]="transactionForm.invalid">
+                        Recuperar por filtro de divisas
+                    </button>
+
+                    <button class="btn bg-primary text-decoration-none text-white m-2" (click)="getTransactions()">
+                        Recuperar todas las transacciones
+                    </button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

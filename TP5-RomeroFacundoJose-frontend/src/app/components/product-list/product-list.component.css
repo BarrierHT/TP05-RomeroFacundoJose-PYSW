@@ -1,0 +1,4 @@
+.card:hover {
+  border: 2px solid rgba(0, 160, 80, 0);
+  color: #ff0000;
+}

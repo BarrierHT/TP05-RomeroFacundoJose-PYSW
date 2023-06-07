@@ -1,0 +1,62 @@
+<div class="container">
+    <form class="d-flex align-items-center justify-content-center" #ticketForm="ngForm">
+        <fieldset class="form-group">
+            <legend>REGISTRAR TICKETS</legend>
+
+            <div class="form-group">
+                <label class="form-label">Selecciona Espectador</label>
+                <select class="form-select" name="spectatorId" required [(ngModel)]="ticket.espectador">
+                    <option selected disabled value="">
+                        Seleccione un espectador
+                    </option>
+                    <option value="{{spectator._id}}" *ngFor="let spectator of spectators">{{spectator.email}}</option>
+                </select>
+
+            </div>
+
+            <div class="form-group">
+                <label>Precio Real</label>
+                <input type="number" step="any" class="form-control" name="realPrice" [(ngModel)]="ticket.precioTicket"
+                    required #precio="ngModel" min="1" />
+
+                <div *ngIf="precio.invalid && (precio.dirty || precio.touched)" class="alert alert-danger">
+                    <div *ngIf="precio.errors?.['required']">
+                        Por favor ingresa un precio.
+                    </div>
+                    <div *ngIf="precio.errors?.['min']">
+                        Valor minimo inválido!
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Tipo de Espectador</label>
+                <select class="form-select" name="spectatorType" required [(ngModel)]="ticket.categoriaEspectador">
+                    <option selected disabled value="">
+                        Seleccione un tipo de espectador
+                    </option>
+                    <option value="e">Extranjero</option>
+                    <option value="l">Local</option>
+                </select>
+
+            </div>
+
+            <div class="form-group mt-3 mb-3 rounded-pill border border-warning p-3 text-center fw-light fst-italic overflow-auto"
+                *ngIf="ticket.precioTicket != 0 && ticket.categoriaEspectador != ''">
+                <label>Precio Cobrado {{ getDiscount() }}</label>
+            </div>
+
+            <div class="form-group mt-2">
+                <button type="submit" class="btn btn-primary" (click)="saveTicket()" [disabled]="ticketForm.invalid">
+                    <span *ngIf="action == 'insert'">Registrar</span>
+                    <span *ngIf="action == 'update'">Modificar</span>
+                </button>
+
+                <a class="text-decoration-none text-white btn btn-primary p-2 m-2" [routerLink]="['/tickets']">
+                    Lista de Tickets
+                </a>
+
+            </div>
+        </fieldset>
+    </form>
+</div>
