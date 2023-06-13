@@ -1,5 +1,62 @@
 <section class="mb-5 mt-4">
     <div class="container">
+
+        <div class="" *ngIf="products.length == 0">
+            <h2 class="text-center"> No hay Productos destacados </h2>
+        </div>
+        <div class="" *ngIf="products.length > 0">
+            <h1 class="text-center"> Productos destacados </h1>
+        </div>
+
+        <div class="container-fluid text-center">
+            <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div *ngFor="let product of products; let i = index" class="carousel-item"
+                        [ngClass]="{ active: i === 0 }">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <div class="card col-sm-6 col-md-4 col-lg-3 mx-2 mb-4">
+                                <div class="card-image-square">
+                                    <img src="{{ product.imagen }}" class="card-img-top" alt="Producto">
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-title fw-bold fs-5">Nombre: {{product.nombre}}</p>
+
+                                    <p class="card-title fw-bold fs-6 ">Descripcion: {{product.descripcion}}</p>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <p class="card-subtitle text-secondary">Precio: {{product.precio}}</p>
+
+                                    <li *ngIf="product.stock <= 0" class="list-group-item not-available">
+                                        Stock No disponible
+                                    </li>
+                                    <li *ngIf="product.stock >= 1" class="list-group-item available">
+                                        Stock Disponible: {{ product.stock }}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
+                    data-bs-slide="prev">
+                    <span class="fw-bold fs-6 bg-info p-2">
+                        <i class="bi bi-caret-left-fill fs-5"></i>
+                        Anterior</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
+                    data-bs-slide="next">
+
+                    <span class="fw-bold fs-6 bg-info p-2">
+                        <i class="bi bi-caret-right-fill fs-5"></i> Siguiente</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 
+<section class="mb-5 mt-4">
+    <div class="container">
         <div class="" *ngIf="products.length == 0">
             <h2 class="text-center"> No hay Productos destacados </h2>
         </div>
@@ -16,10 +73,8 @@
                     <p class="card-subtitle text-secondary">Precio: {{product.precio}}</p>
                     <p class="card-subtitle text-secondary">Stock: {{product.stock}}</p>
 
-                    <!-- <p class="card-subtitle text-secondary">Destacado: {{product.destacado}}</p> -->
-
                 </div>
             </div>
         </div>
     </div>
-</section>
+</section> -->

@@ -100,7 +100,7 @@ export class TicketFormComponent implements OnInit, OnDestroy {
           console.log('Error en el observable: ', error);
           return [];
         }),
-        delay(500) // Agrega un retraso de 1 segundo
+        delay(500) // Agrega un retraso de .5 segundos
       )
       .subscribe((result) => {
         try {
