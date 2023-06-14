@@ -31,7 +31,7 @@ app.use('/api/tickets', ticketRouter.router);
 
 // app.use('/api/sector', sectorRouter.router);
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 8080);
 //starting the server
 app.listen(app.get('port'), () => {
 	console.log(`Server started on port`, app.get('port'));
